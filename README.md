@@ -87,6 +87,10 @@ Here, paste the path of the log file you entered in the client earlier, in the f
 
 Aaaand that's it, everything is now configured and you'll be able to see in clear the content of each packet exchanged during your transaction. Just be careful to always include the log-file argument when lauching the client from now on, otherwise you won't be able to see the content of packets.
 
+## Getting the answers
+
+To get the answers of the lab, simply contact the teaching team of [linfo1341 course](https://uclouvain.be/cours-2023-linfo1341), on the official moodle page of the course if you have access to it, or directly by contacting them by email if you don't have an UCLouvain account.
+
 ## Acknowledgements
 Thanks to Olivier Bonaventure, Maxime Piraux, François Michel, Louis Navarre and Aurelien Buchet who allowed me to realize this project, and gave feedback along the development of this project, allowing to improve it even further !
 
