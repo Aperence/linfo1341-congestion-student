@@ -1,0 +1,36 @@
+name: Tests for lab
+
+on: [push]
+
+env:
+  TESTS: 1
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 5
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.10'
+    - name: Add kathara
+      run: |
+        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 21805A48E6CBBA6B991ABE76646193862B759810 > /dev/null &&\
+        sudo add-apt-repository ppa:katharaframework/kathara > /dev/null &&\
+        sudo apt update > /dev/null && \
+        sudo apt install kathara > /dev/null && \
+        kathara -v
+    - name: Start Lab
+      run: |
+        ./start
+    - name: Run tests
+      run: |
+        tests/main
+    - name: Clean Lab
+      run: |
+         ./clean
+
