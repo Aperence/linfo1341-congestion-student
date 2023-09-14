@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Author : Doeraene Anthony
+
+name=$1
+ip=""
+cmd=$2
+
+if [ $name == "client1" ]; then
+    ip="10.0.3.1"
+elif [ $name == "client2" ]; then
+    ip="10.0.3.2"
+elif [ $name == "server1" ]; then
+    ip="10.0.3.3"
+elif [ $name == "server2" ]; then
+    ip="10.0.3.4"
+elif [ $name == "router1" ]; then
+    ip="10.0.3.5"
+elif [ $name == "router2" ]; then
+    ip="10.0.3.6"
+else
+    echo "Invalid name, format is ./connect <device-name> <optional-command>"
+    exit 1
+fi
+
+
+if [ -z "$cmd" ]; then 
+    ssh -oStrictHostKeyChecking=no -i ~/.ssh/ssh_keys root@$ip
+else
+    echo "Running command \"${cmd}\" on ${name}"
+    echo "$cmd" | ssh -oStrictHostKeyChecking=no -i ~/.ssh/ssh_keys root@$ip
+fi

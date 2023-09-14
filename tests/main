@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Author : Doeraene Anthony
+
+dir="tests"
+tests="check_connectivity check_route check_limit_bw"
+
+for test in $tests; do
+    echo "Running test $test"
+    echo ""
+    $dir/$test
+
+    if [ "$?" -ne 0 ]; then
+        echo "Test failed, aborting"
+        exit 1
+    fi
+
+    echo ""
+done
+
+exit 0

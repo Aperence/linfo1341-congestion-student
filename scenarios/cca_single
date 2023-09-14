@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Author : Doeraene Anthony
+
+name=$(basename $0)
+data=data/XXXL_data.txt
+
+if [ "$#" -ne 1 ]; then
+    echo "Usage : $name <cca>"
+    exit 1
+fi
+
+cca=$1
+
+logs=/shared/$name/$cca
+logs_keys=/shared/keys.txt
+
+mkdir /shared/$name 2> /dev/null
+mkdir /shared/$name/$cca 2> /dev/null
+
+# remove the previous configurations
+./connect router1 "tc qdisc del dev eth1 root" > /dev/null 
+
+# send data on the link using $cca
+./connect router1 "/impair_itf eth1 10ms 8Mbit 20ms" > /dev/null 
+./connect client1 "cd /home && /usr/bin/python3.10 src/client.py $data --host 10.0.1.1 -v 1 -c $cca --log-dir $logs --keylog-file $logs_keys -n $cca"

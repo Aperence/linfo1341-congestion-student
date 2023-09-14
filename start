@@ -1,0 +1,101 @@
+#!/bin/bash
+
+# Author : Doeraene Anthony
+
+init_device_dirs(){
+    name=$1
+
+    # create the directories for devices
+    mkdir lab/$name
+    mkdir lab/$name/home
+
+    # copy the certs needed to run the server
+    cp -r certs lab/$name/home
+
+    # copy the data files
+    cp -r data/ lab/$name/home
+
+    # copy the init script file
+    cp lab/scripts/init lab/$name/home/init
+
+    # copy the server and client files
+    cp -r src lab/$name/home
+
+    # copy the public key used for ssh
+    cp ssh_keys/ssh_keys.pub lab/$name/home
+}
+
+init_router(){
+    name=$1
+
+    mkdir lab/$name
+    # copy the public key used by main
+    cp ssh_keys/ssh_keys.pub lab/$name
+    # copy the impairement script
+    cp lab/scripts/impair_itf lab/$name
+}
+
+start_server(){
+    name=$1
+    ip=$2
+
+    # start a quic + iperf server
+    sudo kathara exec $name -- sh -c "cd /home && /usr/bin/python3.10 src/server.py --host ${ip} -v 1" & 
+    sudo kathara exec $name -- sh -c "iperf -s"
+}
+
+init_main(){
+    mkdir lab/main
+
+    # copy the private key to main
+    cp ssh_keys/ssh_keys lab/main
+    # copy the connect script
+    cp lab/scripts/connect lab/main
+    # copy the scenarios
+    cp -r scenarios lab/main
+}
+
+# start docker
+# https://stackoverflow.com/questions/3466166/how-to-check-if-running-in-cygwin-mac-or-linux
+case "$(uname -s)" in
+    Linux*)     echo "starting docker for Linux"; sudo systemctl start docker;;
+    Darwin*)    echo "starting docker for Mac"; sudo docker-machine start default;;
+esac
+
+
+# comment the following line if not on Red-Hat based distribution
+sudo systemctl stop firewalld
+
+# force the reload of docker images
+# sudo docker system prune -a
+
+# remove previously started lab
+./clean
+
+# create the dirs for each device
+init_device_dirs client1
+init_device_dirs client2
+init_device_dirs server1
+init_device_dirs server2
+
+# init the files for the routes
+init_router router1
+init_router router2
+
+# init the files for the main hub
+init_main
+
+# start the lab
+cd lab && \
+    sudo kathara lstart --noterminals
+
+if [ -z "$TESTS" ]; then
+    start_server server1 "10.0.1.1" > server1.logs&\
+        start_server server2 "10.0.1.2" > server2.logs&\
+        sudo kathara connect main
+else
+    # running the tests
+    echo "Running in test mode"
+    start_server server1 "10.0.1.1" > server1.logs&\
+        start_server server2 "10.0.1.2" > server2.logs&
+fi

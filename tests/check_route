@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Author : Doeraene Anthony
+
+hosts="client1 client2 server1 server2"
+ips="10.0.0.1 10.0.0.2 10.0.1.1 10.0.1.2"
+for host in $hosts; do
+    for ip in $ips; do 
+        echo -n "Running traceroute from $host to $ip... "
+        route=$(kathara exec -d lab $host -- sh -c "traceroute $ip | tail -n +2 | cut -d\" \" -f4")
+        err=$(python3 tests/check_route_help.py "$route" --src $host --dest $ip)
+        if [ "$?" -ne 0 ]; then
+            # invalid route
+            echo "FAILED"
+            echo -e "$err"
+            exit 1
+        fi
+        echo "OK"
+    done
+done
+
+exit 0

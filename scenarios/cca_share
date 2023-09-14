@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Author : Doeraene Anthony
+
+name=$(basename $0)
+
+if [ "$#" -ne 2 ]; then
+    echo "Usage : $name <cca1> <cca2>"
+    exit 1
+fi
+
+cca1=$1
+cca2=$2
+
+data=data/huge_data.txt
+
+logs=/shared/$name/${cca1}_${cca2}
+logs_keys=/shared/keys.txt
+
+mkdir /shared/$name 2> /dev/null
+mkdir /shared/$name/${cca1}_${cca2} 2> /dev/null
+
+# remove the previous configurations
+./connect router1 "tc qdisc del dev eth1 root" > /dev/null 
+
+# add a fixed bandwidth on router1
+./connect router1 "tc qdisc add dev eth1 root tbf rate 8192kbit latency 5ms burst 25600" > /dev/null
+
+# try to send data in parallel for the 2 clients
+./connect client1 "cd /home && /usr/bin/python3.10 src/client.py $data --host 10.0.1.1 -v 1 -c $cca1 --log-dir $logs --keylog-file $logs_keys -n $cca1"&
+./connect client2 "cd /home && /usr/bin/python3.10 src/client.py $data --host 10.0.1.2 -v 1 -c $cca2 --log-dir $logs --keylog-file $logs_keys -n $cca2"&

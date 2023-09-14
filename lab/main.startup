@@ -1,0 +1,7 @@
+ip addr add 10.0.3.7/24 dev eth0
+
+mkdir ~/.ssh
+chmod 600 ssh_keys
+chmod +x connect
+chmod +x scenarios/*
+mv ssh_keys ~/.ssh

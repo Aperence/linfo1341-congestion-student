@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Author : Doeraene Anthony
+
+# delete the created files
+rm -rf lab/client1
+rm -rf lab/client2
+rm -rf lab/server1
+rm -rf lab/server2
+rm -rf lab/main
+rm -rf lab/router1
+rm -rf lab/router2
+rm lab/server1.logs 2> /dev/null
+rm lab/server2.logs 2> /dev/null
+sudo rm -rf lab/shared
+
+
+# shutdown kathara
+cd lab && sudo kathara lclean
+
+if [ "$?" -ne 0 ]; then
+    echo "Failed to shutdown lab, try the following commands, or just restart docker:
+
+    sudo systemctl restart docker
+    cd lab && sudo kathara lclean
+    "
+fi

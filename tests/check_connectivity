@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Author : Doeraene Anthony
+
+hosts="client1 client2 server1 server2"
+ips="10.0.0.1 10.0.0.2 10.0.1.1 10.0.1.2"
+ping_nb=10
+for host in $hosts; do
+    for ip in $ips; do 
+        losses=$(kathara exec -d lab $host -- sh -c "ping $ip -c $ping_nb | grep \"packet loss\" | cut -f6 -d\" \"")
+        losses=${losses%\%}
+        echo "Loss ratio for $host to $ip : $losses %"
+        if [ "$losses" -gt 20 ]; then
+            # if more than 20% packet lost, consider the connectivity to be faulty
+            echo "Connection faulty, test failed"
+            exit 1
+        fi
+    done
+done
+
+exit 0

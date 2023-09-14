@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Author : Doeraene Anthony
+
+chmod 777 /home/scenarios/*
+mkdir ~/.ssh
+touch ~/.ssh/authorized_keys
+cat /home/ssh_keys.pub >> ~/.ssh/authorized_keys
+
+service ssh start
