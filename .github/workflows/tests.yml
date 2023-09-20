@@ -1,36 +1,34 @@
-name: Tests for lab
+name: Tests for lab and deployment
 
-on: [push]
+on: 
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 env:
   TESTS: 1
 
 jobs:
-  build-linux:
+  push-student:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 5
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
-        python-version: '3.10'
-    - name: Add kathara
-      run: |
-        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 21805A48E6CBBA6B991ABE76646193862B759810 > /dev/null &&\
-        sudo add-apt-repository ppa:katharaframework/kathara > /dev/null &&\
-        sudo apt update > /dev/null && \
-        sudo apt install kathara > /dev/null && \
-        kathara -v
-    - name: Start Lab
-      run: |
-        ./start
-    - name: Run tests
-      run: |
-        tests/main
-    - name: Clean Lab
-      run: |
-         ./clean
-
+      - uses: actions/checkout@v2
+      - name: Generate output files for student archive
+        run: |
+          utils/generate_student_archive
+      - name: Pushes to another repository
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
+        with:
+          source-directory: 'congestion-lab-student'
+          destination-github-username: 'Aperence'
+          destination-repository-name: 'linfo1341-congestion-student'
+          user-email: aperence.github.bot@gmail.com
+          target-branch: main
+      - name: Clean generated files
+        run: |
+          rm -rf ./congestion-lab-student
