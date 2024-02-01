@@ -40,8 +40,8 @@ start_server(){
     ip=$2
 
     # start a quic + iperf server
-    sudo kathara exec $name -- sh -c "cd /home && /usr/bin/python3.10 src/server.py --host ${ip} -v 1" & 
-    sudo kathara exec $name -- sh -c "iperf -s"
+    sudo kathara exec $name -- "sh -c \"cd /home && /usr/bin/python3.10 src/server.py --host ${ip} -v 1\"" & 
+    sudo kathara exec $name -- "sh -c \"iperf -s\""
 }
 
 init_main(){

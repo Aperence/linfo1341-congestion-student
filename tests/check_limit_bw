@@ -6,9 +6,9 @@ router="router1"
 client="client1"
 server="10.0.1.1"
 
-kathara exec -d lab $router -- sh -c "/impair_itf eth1 10ms 8Mbit 40ms" > /dev/null
+kathara exec -d lab $router -- "sh -c \"/impair_itf eth1 10ms 8Mbit 40ms\"" > /dev/null
 
-out=$(kathara exec -d lab $client -- sh -c "iperf -c $server" | grep "bits/sec")
+out=$(kathara exec -d lab $client -- "sh -c \"iperf -c $server\"" | grep "bits/sec")
 
 bw=$(echo "$out" | cut -d" " -f11)
 unit=$(echo "$out" | cut -d" " -f12)
@@ -25,7 +25,7 @@ elif (( $(echo "$bw < 7" | bc -l) )); then
     exit 1
 fi
 
-kathara exec -d lab $router -- sh -c "tc qdisc del dev eth1 root"
+kathara exec -d lab $router -- "sh -c \"tc qdisc del dev eth1 root\""
 
 echo "Bandwidth correctly limited to ~8Mbps"
 

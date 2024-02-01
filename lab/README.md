@@ -14,7 +14,7 @@ When a scenario stops, you will be able to plot the results of this scenario (no
 
 ## Description of the nine scenarios
 
-This lab contains nine different scenarios that will enable you to progrssively explore some of the key aspects of QUIC's congestion control algorithms.
+This lab contains nine different scenarios that will enable you to progressively explore some of the key aspects of QUIC's congestion control algorithms.
 
 ### [ACK clocking](../scenarios/no_cca_low_rate)
 
@@ -79,7 +79,7 @@ python3 src/share_bandwidth.py lab/shared/cca_share/cca1_cca2
 
 ### [Sharring bandwidth : even for TCP flows](../scenarios/compare_iperf)
 
-We've seen how 2 QUIC clients share bandwidth. But in the real world, QUIC isn't the only transport protocol in use. Another one frequently used is TCP and you should already know a lot about. One question that you might ask yourself is <q>Do two seperate protocols allow the sharing of the same bandwidth ?</q>, and in this test, we will answer this question. The client2 runs a TCP connection (using the iperf tool) and sends data to server2, while client1 uses a QUIC connection and sends data to server1.
+We've seen how 2 QUIC clients share bandwidth. But in the real world, QUIC isn't the only transport protocol in use. Another one frequently used is TCP and you should already know a lot about. One question that you might ask yourself is <q>Do two separate protocols allow the sharing of the same bandwidth ?</q>, and in this test, we will answer this question. The client2 runs a TCP connection (using the iperf tool) and sends data to server2, while client1 uses a QUIC connection and sends data to server1.
 
 Run the script `scenarios/compare_iperf` by passing as argument the control congestion you want to use, feel free to select the one you prefer between CUBIC and Reno.
 
