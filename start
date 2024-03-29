@@ -40,8 +40,8 @@ start_server(){
     ip=$2
 
     # start a quic + iperf server
-    sudo kathara exec $name -- "sh -c \"cd /home && /usr/bin/python3.10 src/server.py --host ${ip} -v 1\"" & 
-    sudo kathara exec $name -- "sh -c \"iperf -s\""
+    sudo kathara exec $name -- "sh -c \"cd /home && /venv/bin/python src/server.py --host ${ip} -v 1\"" & 
+    sudo kathara exec $name -- "sh -c \"iperf -s\"" &
 }
 
 init_main(){
@@ -89,13 +89,5 @@ init_main
 cd lab && \
     sudo kathara lstart --noterminals
 
-if [ -z "$TESTS" ]; then
-    start_server server1 "10.0.1.1" > server1.logs&\
-        start_server server2 "10.0.1.2" > server2.logs&\
-        sudo kathara connect main
-else
-    # running the tests
-    echo "Running in test mode"
-    start_server server1 "10.0.1.1" > server1.logs&\
-        start_server server2 "10.0.1.2" > server2.logs&
-fi
+start_server server1 "10.0.1.1" > server1.logs
+start_server server2 "10.0.1.2" > server2.logs

@@ -10,8 +10,8 @@ kathara exec -d lab $router -- "sh -c \"/impair_itf eth1 10ms 8Mbit 40ms\"" > /d
 
 out=$(kathara exec -d lab $client -- "sh -c \"iperf -c $server\"" | grep "bits/sec")
 
-bw=$(echo "$out" | cut -d" " -f11)
-unit=$(echo "$out" | cut -d" " -f12)
+bw=$(echo "$out" | cut -d" " -f10)
+unit=$(echo "$out" | cut -d" " -f11)
 
 if [ "$unit" != "Mbits/sec" ]; then
     echo "Invalid order of unit : $unit"

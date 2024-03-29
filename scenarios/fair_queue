@@ -29,5 +29,5 @@ mkdir /shared/$name/$cca 2> /dev/null
 ./connect router1 "tc qdisc add dev eth1 parent 1: handle 2: fq_codel" > /dev/null
 
 # send the data for the 2 clients
-./connect client1 "cd /home && /usr/bin/python3.10 src/client.py $data --host 10.0.1.1 -v 1 -c nothing --log-dir $logs --keylog-file $logs_keys -s 1000000 -n no_CCA"&
-./connect client2 "cd /home && /usr/bin/python3.10 src/client.py $data --host 10.0.1.2 -v 1 -c $cca --log-dir $logs --keylog-file $logs_keys -n $cca"&
+./connect client1 "cd /home && /venv/bin/python src/client.py $data --host 10.0.1.1 -v 1 -c nothing --log-dir $logs --keylog-file $logs_keys -s 1000000 -n no_CCA"&
+./connect client2 "cd /home && /venv/bin/python src/client.py $data --host 10.0.1.2 -v 1 -c $cca --log-dir $logs --keylog-file $logs_keys -n $cca"&

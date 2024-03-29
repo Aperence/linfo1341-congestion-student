@@ -17,5 +17,5 @@ mkdir /shared/$name 2> /dev/null
 # BW = (cwnd / rtt) * 8 = (400000 / 0.04) * 8 = 80 Mbps, so if buffer can accept more than this, no problem
 # Let's thus only set a buffer of 8Mbit whith a max latency of 200ms
 ./connect router1 "/impair_itf eth1 50ms 8Mbit 200ms" > /dev/null 
-./connect client1 "cd /home && /usr/bin/python3.10 src/client.py $data --host 10.0.1.1 -v 1 -c nothing --log-dir $logs --keylog-file $logs_keys -s 400000 -n no_CCA"
-./connect client2 "cd /home && /usr/bin/python3.10 src/client.py $data --host 10.0.1.2 -v 1 -c cubic --log-dir $logs --keylog-file $logs_keys -n cubic"
+./connect client1 "cd /home && /venv/bin/python src/client.py $data --host 10.0.1.1 -v 1 -c nothing --log-dir $logs --keylog-file $logs_keys -s 400000 -n no_CCA"
+./connect client2 "cd /home && /venv/bin/python src/client.py $data --host 10.0.1.2 -v 1 -c cubic --log-dir $logs --keylog-file $logs_keys -n cubic"

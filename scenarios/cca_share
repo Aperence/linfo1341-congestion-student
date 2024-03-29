@@ -27,5 +27,5 @@ mkdir /shared/$name/${cca1}_${cca2} 2> /dev/null
 ./connect router1 "tc qdisc add dev eth1 root tbf rate 8192kbit latency 5ms burst 25600" > /dev/null
 
 # try to send data in parallel for the 2 clients
-./connect client1 "cd /home && /usr/bin/python3.10 src/client.py $data --host 10.0.1.1 -v 1 -c $cca1 --log-dir $logs --keylog-file $logs_keys -n $cca1"&
-./connect client2 "cd /home && /usr/bin/python3.10 src/client.py $data --host 10.0.1.2 -v 1 -c $cca2 --log-dir $logs --keylog-file $logs_keys -n $cca2"&
+./connect client1 "cd /home && /venv/bin/python src/client.py $data --host 10.0.1.1 -v 1 -c $cca1 --log-dir $logs --keylog-file $logs_keys -n $cca1"&
+./connect client2 "cd /home && /venv/bin/python src/client.py $data --host 10.0.1.2 -v 1 -c $cca2 --log-dir $logs --keylog-file $logs_keys -n $cca2"&

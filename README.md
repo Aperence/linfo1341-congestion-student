@@ -44,6 +44,7 @@ To run the scenarios, simply open a terminal in this folder. Type the following 
 
 ```
 ./start
+cd lab && sudo kathara connect main
 ```
 
 This will run the lab, and should after some time open a terminal as `root@main`. This terminal will be the main hub where you'll be able to run the differents scenarios, as well as connecting to the other devices if you want to play by yourself with the congestion control.
