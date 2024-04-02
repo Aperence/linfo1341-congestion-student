@@ -8,8 +8,6 @@ This [Kathara](https://www.kathara.org/) lab will allow students to get handson 
   
 - [Kathara](https://www.kathara.org/) : to install it, just follow the guide on their site, or the guide on the [wiki](https://github.com/KatharaFramework/Kathara/wiki)
 
-- If you are on a Red-Hat Based device, uncomment the line `67` of the [start](./start) script.
-
 ## Description of the lab
 
 In this lab, you will learn how congestion control works the reason why these algorithms are part of today's Internet.
@@ -60,6 +58,16 @@ to quit the main hub, and type :
 ./clean
 ```
 to remove all the files created by the lab
+
+### Lab on Red-hat based distributions
+
+On these kind of distributions, the lab requires the firewall to be disabled (as it won't work at all otherwise). The start script will automatically ask you if you want to disable it, and will proceed with this disabling. After having done the lab, the cleaning script will ask you wether you want to enable your firewall once again. If you want to handle these tasks manually, you can use :
+```bash
+# restart the firewall
+sudo systemctl start firewalld  
+# stop the firewall
+sudo systemctl stop firewalld   
+```
 
 ## Sniffing packets using wireshark
 

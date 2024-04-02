@@ -2,6 +2,33 @@
 
 # Author : Doeraene Anthony
 
+ask_confirmation(){
+    msg=$1
+    yes=$2
+    no=$3
+    echo "$msg [Y/N]"
+    read resp
+    # convert to lower case
+    resp=${resp,,}
+    if [ "$resp" == "y" ]; then
+        $yes
+    else
+        $no
+    fi
+}
+is_red_hat(){
+    test -f /etc/redhat-release
+}
+
+is_fedora(){
+    test -n "$(cat /etc/os-release | grep fedora)"
+}
+
+enable_firewall(){
+    echo "Restarting firewall..."
+    sudo systemctl start firewalld
+}
+
 # delete the created files
 rm -rf lab/client1
 rm -rf lab/client2
@@ -24,4 +51,11 @@ if [ "$?" -ne 0 ]; then
     sudo systemctl restart docker
     cd lab && sudo kathara lclean
     "
+fi
+
+if is_red_hat || is_fedora ; then
+    echo "Fedora/Red-hat system detected"
+    ask_confirmation "Do you want to start again your firewall ?" \
+    'enable_firewall' \
+    ':' # do nothing if don't accept
 fi

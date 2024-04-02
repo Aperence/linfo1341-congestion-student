@@ -2,6 +2,39 @@
 
 # Author : Doeraene Anthony
 
+ask_confirmation(){
+    msg=$1
+    yes=$2
+    no=$3
+    echo "$msg [Y/N]"
+    read resp
+    # convert to lower case
+    resp=${resp,,}
+    if [ "$resp" == "y" ]; then
+        $yes
+    else
+        $no
+    fi
+}
+
+is_red_hat(){
+    test -f /etc/redhat-release
+}
+
+is_fedora(){
+    test -n "$(cat /etc/os-release | grep fedora)"
+}
+
+disable_firewall(){
+    echo "Disabling firewall..."
+    sudo systemctl stop firewalld
+}
+
+abort(){
+    echo "Aborting"
+    exit 1
+}
+
 init_device_dirs(){
     name=$1
 
@@ -62,15 +95,17 @@ case "$(uname -s)" in
     Darwin*)    echo "starting docker for Mac"; sudo docker-machine start default;;
 esac
 
+# remove previously started lab
+# ./clean
 
 # comment the following line if not on Red-Hat based distribution
-sudo systemctl stop firewalld
-
-# force the reload of docker images
-# sudo docker system prune -a
-
-# remove previously started lab
-./clean
+if is_red_hat || is_fedora ; then
+    echo "Fedora/Red-hat system detected"
+    ask_confirmation "This lab requires to stop the firewall on fedora/red-hat in order to work. Disable it ?"  \
+    'disable_firewall'  \
+    'abort'
+    
+fi
 
 # create the dirs for each device
 init_device_dirs client1
