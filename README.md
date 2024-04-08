@@ -4,7 +4,7 @@ This [Kathara](https://www.kathara.org/) lab will allow students to get handson 
 
 ## Installation requirements
 
-- Docker : can be installed easily by following the instructions on their [main site](https://docs.docker.com/get-docker/)
+- Docker : can be installed easily by following the instructions on their [main site](https://docs.docker.com/get-docker/). Note that on Linux, you should install the [Docker Engine](https://docs.docker.com/engine/install/), while on Windows it is preferable to install [Docker desktop](https://docs.docker.com/desktop/install/windows-install/) 
   
 - [Kathara](https://www.kathara.org/) : to install it, just follow the guide on their site, or the guide on the [wiki](https://github.com/KatharaFramework/Kathara/wiki)
 
@@ -40,22 +40,34 @@ During this lab, you can also disable the generation of qlogs if you want to che
 
 To run the scenarios, simply open a terminal in this folder. Type the following command:
 
+### For Linux/Mac
 ```
 ./start
 cd lab && sudo kathara connect main
 ```
+### For Windows
+```
+.\start.bat
+cd lab
+kathara connect main
+```
 
-This will run the lab, and should after some time open a terminal as `root@main`. This terminal will be the main hub where you'll be able to run the differents scenarios, as well as connecting to the other devices if you want to play by yourself with the congestion control.
+This will run the lab, and should after some time open a terminal as `root@main`. This terminal will be the main hub where you'll be able to run the different scenarios, as well as connect to the other devices if you want to play by yourself with the congestion control.
 
 You can now follow the instructions contained in the [lab README](lab/README.md) to learn how to run the different scenarios, and observation the evolution of congestion control variables over time. You may want to use wireshark or tcpdump to analyze captured packets though during this lab. For this, simply follow the instructions of the [wireshark section](#sniffing-packets-using-wireshark) below.
 
 To shutdown the lab, use the command 
+```bash
+exit # Alternatively, use CTRL+D
 ```
-exit
+to quit the main hub, and type one of the following command:
+### For Linux/Max
+```bash
+./clean 
 ```
-to quit the main hub, and type :
-```
-./clean
+### For Windows
+```bash
+.\clean.bat
 ```
 to remove all the files created by the lab
 
@@ -99,6 +111,6 @@ And that's it, everything is now configured and you will be able to see in clear
 
 To get the answers of the lab, simply contact the teaching team of [linfo1341 course](https://uclouvain.be/cours-2023-linfo1341), on the official moodle page of the course if you have access to it, or directly by contacting them by email if you don't have an UCLouvain account.
 
-## Acknowledgements
-Thanks to Olivier Bonaventure, Maxime Piraux, François Michel, Louis Navarre and Aurelien Buchet who allowed me to realize this project, and gave feedback along the development of this project, allowing to improve it even further !
+## Acknowledgments
+Thanks to Olivier Bonaventure, Maxime Piraux, François Michel, Louis Navarre and Aurelien Buchet who allowed me to realize this project, and gave feedback along the development of this project, allowing me to improve it even further!
 
