@@ -1,3 +1,5 @@
+::- Author : Doeraene Anthony
+
 @echo off
 
 rmdir /S /Q lab\client1

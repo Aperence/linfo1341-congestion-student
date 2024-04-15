@@ -52,7 +52,14 @@ python3 src/plot_congestion.py lab/shared/cca_single/reno --dir
 python3 src/plot_congestion.py lab/shared/cca_single/cubic --dir
 ```
 
+**Important note** : when using cubic for this particular scenario, we disabled the Reno friendly behavior of cubic, to better show the cubic growth of the cwnd. However, in real situations, it should be enabled to better share the bandwidth. You can experiment as a bonus exercice how cubic behave when we enable this feature by running `scenarios/cca_single cubic true` and inspect the result using 
+
+```
+python3 src/plot_congestion.py lab/shared/cca_single/cubic_reno_friendly_enabled --dir
+```
+
 #### Question: What are the main differences that you see ?
+#### Bonus questions : Can you guess why cubic use a Reno friendly region ? What could be the potential advantages ?
 
 
 
@@ -233,7 +240,7 @@ This scripts has several options :
 - `-d step_time` and `-m step_field` : define when there shouldn't be a line drawn between 2 points of the same phase. In practice, it is rare to use these arguments.
 - `--dir` : consider that the LOG_FILE is a directory and all qlogs contained in this directory will be plotted (not recursive)
 - `-a` : align the graphs such that they each start at time 0
-- `--reno-friendly` : use a Reno friendly region for CUBIC
+- `--reno-friendly-disabled` : disable the use a Reno friendly region for CUBIC
 
 You can also specify more than one log_file when running this script, and if more than one file is given, each one of these will be plotted on a different subplots, allowing to compare the evolution of the state of different clients at the same time. (for example, compare the evolution of cwnd of 2 clients sending data on the same link)
 

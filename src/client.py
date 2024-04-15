@@ -138,7 +138,7 @@ parser.add_argument("--keylog-file", type=str, default=None, help="Path to a fil
 parser.add_argument("--log-dir", type=str, default=None, help="Path to a dir where the logs will be saved")
 parser.add_argument("-s", "--size-cwnd", type=int, default=None, help="Size for a static cwnd (only when cca == nothing)")
 parser.add_argument("-n", "--name", type=str, default="", help="Name of the scenario used, save it in qlogs as the 'name_client' field (only applied when a log-dir field is provided)")
-parser.add_argument("--reno-friendly", action="store_true", help="Whether to use a reno friendly region (default to False) (only applied when using a cubic cca)")
+parser.add_argument("--reno-friendly-disabled", action="store_true", help="Whether to use or not a reno friendly region (default to False) (only applied when using a cubic cca)")
 
 args = parser.parse_args()
 
@@ -152,7 +152,7 @@ cca = None
 if (args.cca == "reno"):
     cca = RenoCongestionControl(callback=callback, slow_start=HyStart())
 elif (args.cca == "cubic"):
-    cca = CubicCongestionControl(callback=callback, reno_friendly_activated=args.reno_friendly)
+    cca = CubicCongestionControl(callback=callback, reno_friendly_activated=not args.reno_friendly_disabled)
 elif (args.cca == "bbr"):
     cca = BBRCongestionControl(callback=callback)
 elif (args.cca == "bbr2"):

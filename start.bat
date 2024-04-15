@@ -1,3 +1,5 @@
+::- Author : Doeraene Anthony
+
 @echo off
 
 call:init_device_dirs client1
