@@ -3,7 +3,7 @@
 # Author : Doeraene Anthony
 
 dir="tests"
-tests="check_connectivity check_route check_limit_bw"
+tests="check_connectivity check_route check_limit_bw check_commands"
 
 for test in $tests; do
     echo "Running test $test"

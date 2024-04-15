@@ -1,0 +1,68 @@
+#!/bin/bash
+
+# Author : Doeraene Anthony
+
+# Check that the commands given in the readme don't crash while running them
+
+container_name=$(docker ps | grep "main" | tr -s " " | cut -f10 -d" ")
+commands=$(cat <<EOF
+scenarios/no_cca_low_rate
+scenarios/no_cca_high_rate
+scenarios/cca_single reno
+scenarios/cca_single cubic
+scenarios/cca_single cubic true
+scenarios/cca_share reno reno
+scenarios/cca_share reno cubic
+scenarios/cca_share cubic cubic
+scenarios/compare_iperf reno
+scenarios/without_fair_queue reno
+scenarios/fair_queue reno
+scenarios/rtt_influence reno
+scenarios/rtt_influence cubic
+scenarios/compare_long_rtt cubic reno
+EOF
+)
+
+plot_commands=$(cat <<EOF
+for file in $(ls lab/shared/no_cca_low_rate); do python3 src/qlog_parser.py lab/shared/no_cca_low_rate/$file -d; done
+python3 src/plot_congestion.py lab/shared/no_cca_low_rate/ --dir -f delivery_rate
+for file in $(ls lab/shared/no_cca_high_rate); do python3 src/qlog_parser.py lab/shared/no_cca_high_rate/$file -d; done
+python3 src/plot_congestion.py lab/shared/cca_single/reno --dir
+python3 src/plot_congestion.py lab/shared/cca_single/cubic --dir
+python3 src/plot_congestion.py lab/shared/cca_single/cubic_reno_friendly_enabled --dir
+python3 src/plot_congestion.py lab/shared/cca_share/reno_reno --dir
+python3 src/plot_congestion.py lab/shared/cca_share/reno_reno --dir -f delivery_rate
+python3 src/share_bandwidth.py lab/shared/cca_share/reno_reno
+python3 src/plot_congestion.py lab/shared/cca_share/reno_cubic --dir
+python3 src/plot_congestion.py lab/shared/cca_share/reno_cubic --dir -f delivery_rate
+python3 src/share_bandwidth.py lab/shared/cca_share/reno_cubic
+python3 src/plot_congestion.py lab/shared/cca_share/cubic_cubic --dir
+python3 src/plot_congestion.py lab/shared/cca_share/cubic_cubic --dir -f delivery_rate
+python3 src/share_bandwidth.py lab/shared/cca_share/cubic_cubic
+python3 src/plot_congestion.py lab/shared/compare_iperf/reno_iperf --dir
+python3 src/plot_congestion.py lab/shared/without_fair_queue/reno --dir -f delivery_rate -l
+python3 src/plot_congestion.py lab/shared/fair_queue/reno --dir -f delivery_rate -l
+python3 src/plot_congestion.py lab/shared/rtt_influence/reno --dir -a
+python3 src/plot_congestion.py lab/shared/rtt_influence/cubic --dir -a
+python3 src/plot_congestion.py lab/shared/compare_long_rtt/cubic_reno --dir -a
+EOF
+)
+
+while IFS= read -r command ; do
+    echo "Running command $command"
+    docker exec $container_name sh -c "$command" > /dev/null 2>/dev/null
+    if [ $? -ne 0 ]; then
+        echo "Command $command failed to run"
+        exit 1
+    fi
+done <<< "$commands"
+
+
+while IFS= read -r command ; do
+    echo "Running plot command $command"
+    $(command)
+    if [ $? -ne 0 ]; then
+        echo "Plot command $command failed to run"
+        exit 1
+    fi
+done <<< "$plot_commands"

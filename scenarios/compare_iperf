@@ -26,4 +26,11 @@ mkdir /shared/$name/${cca}_iperf 2> /dev/null
 ./connect router1 "/impair_itf eth1 5ms 8Mbit 50ms" > /dev/null
 
 ./connect client1 "cd /home && /venv/bin/python src/client.py $data --host 10.0.1.1 -v 1 -c $cca --log-dir $logs --keylog-file $logs_keys -n $cca"&
+pids[0]=$!
 ./connect client2 "iperf -c 10.0.1.2"&
+pids[1]=$!
+
+# could alternatively use wait
+for pid in ${pids[*]}; do
+    wait $pid
+done

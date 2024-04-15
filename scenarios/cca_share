@@ -28,4 +28,11 @@ mkdir /shared/$name/${cca1}_${cca2} 2> /dev/null
 
 # try to send data in parallel for the 2 clients
 ./connect client1 "cd /home && /venv/bin/python src/client.py $data --host 10.0.1.1 -v 1 -c $cca1 --log-dir $logs --keylog-file $logs_keys -n $cca1"&
+pids[0]=$!
 ./connect client2 "cd /home && /venv/bin/python src/client.py $data --host 10.0.1.2 -v 1 -c $cca2 --log-dir $logs --keylog-file $logs_keys -n $cca2"&
+pids[1]=$!
+
+# could alternatively use wait
+for pid in ${pids[*]}; do
+    wait $pid
+done

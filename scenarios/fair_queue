@@ -30,4 +30,11 @@ mkdir /shared/$name/$cca 2> /dev/null
 
 # send the data for the 2 clients
 ./connect client1 "cd /home && /venv/bin/python src/client.py $data --host 10.0.1.1 -v 1 -c nothing --log-dir $logs --keylog-file $logs_keys -s 1000000 -n no_CCA"&
+pids[0]=$!
 ./connect client2 "cd /home && /venv/bin/python src/client.py $data --host 10.0.1.2 -v 1 -c $cca --log-dir $logs --keylog-file $logs_keys -n $cca"&
+pids[1]=$!  # take the pid of previous command and store it
+
+# https://stackoverflow.com/questions/356100/how-to-wait-in-bash-for-several-subprocesses-to-finish-and-return-exit-code-0
+for pid in ${pids[*]}; do
+    wait $pid
+done
