@@ -91,7 +91,14 @@ to quit the main hub, and type one of the following commands:
 ```bash
 .\clean.bat
 ```
-to remove all the files created by the lab
+### For vagrant
+```bash
+# Exit the the main device + the vm and run the following commands
+vagrant destroy
+# remove the create files by copy_from_vm.sh
+rm -rf lab/shared  
+``` 
+to remove all the files created by the lab.
 
 ### Lab on Red-hat based distributions
 
