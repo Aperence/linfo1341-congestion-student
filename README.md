@@ -30,7 +30,7 @@ This lab uses scenarios that will run transactions in specific conditions and to
 
 In order to record the events in the different scenarios, the clients and servers are configured to log information using the QLOG format. The exact format is described in the [qlog IETF draft](https://datatracker.ietf.org/doc/draft-ietf-quic-qlog-main-schema/).
 
-By default, the qlogs are stored the file /lab/shared/NAME_SCEN/LOG_ID where LOG_ID is a randomly generated identifier. A script to parse these file is provided in [src/qlog_parser.py](src/qlog_parser.py).
+By default, the qlogs are stored in the file /lab/shared/NAME_SCEN/LOG_ID where LOG_ID is a randomly generated identifier. A script to parse these files is provided in [src/qlog_parser.py](src/qlog_parser.py).
 
 We use qlogs during this lab, as the plotter uses them to represent the variation of fields.
 
@@ -41,12 +41,12 @@ During this lab, you can also disable the generation of qlogs if you want to che
 To run the scenarios, simply open a terminal in this folder. Type the following command:
 
 ### For Linux/Mac
-```
+```bash
 ./start
 cd lab && sudo kathara connect main
 ```
 ### For Windows
-```
+```bash
 .\start.bat
 cd lab
 kathara connect main
@@ -54,13 +54,35 @@ kathara connect main
 
 This will run the lab, and should after some time open a terminal as `root@main`. This terminal will be the main hub where you'll be able to run the different scenarios, as well as connect to the other devices if you want to play by yourself with the congestion control.
 
-You can now follow the instructions contained in the [lab README](lab/README.md) to learn how to run the different scenarios, and observation the evolution of congestion control variables over time. You may want to use wireshark or tcpdump to analyze captured packets though during this lab. For this, simply follow the instructions of the [wireshark section](#sniffing-packets-using-wireshark) below.
+### Run on Vagrant (not recommended):
+If you encounter issues when trying to run the lab and are unable to make it work, you can try running it with Vagrant. To do so, first, install Vagrant and a VM provider (VirtualBox or VMWare for example). Then, run the following commands that will create a fedora VM:
 
-To shutdown the lab, use the command 
+```bash
+# create the vm
+# note : you may need to pass your provider
+# --provider=virtualbox or --provider=vmware
+vagrant up  
+
+# connect to the vm
+vagrant ssh
+
+# You are now inside the vm, run the lab
+cd /vagrant
+./start
+cd lab && sudo kathara connect main
+```
+
+Note that for plotting, you'll need to copy files from the VM to your local computer, and then use the plotting scripts. To do so, just use the `copy_from_vm.sh` script (if you are on Windows, simply use the `scp` command). It will probably ask you for a password, for this VM it is simply `vagrant`.
+
+---
+
+You can now follow the instructions contained in the [lab README](lab/README.md) to learn how to run the different scenarios, and observe the evolution of congestion control variables over time. You may want to use wireshark or tcpdump to analyze captured packets though during this lab. For this, simply follow the instructions in the [wireshark section](#sniffing-packets-using-wireshark) below.
+
+To shut down the lab, use the command 
 ```bash
 exit # Alternatively, use CTRL+D
 ```
-to quit the main hub, and type one of the following command:
+to quit the main hub, and type one of the following commands:
 ### For Linux/Max
 ```bash
 ./clean 

@@ -7,5 +7,6 @@
 /temp
 /results
 .vscode
+.vagrant
 /linfo1341-congestion-student
 out

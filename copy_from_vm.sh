@@ -1,0 +1,1 @@
+scp -r -P 2222 vagrant@127.0.0.1:/vagrant/lab/shared lab/
