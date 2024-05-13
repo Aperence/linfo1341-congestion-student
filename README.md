@@ -8,6 +8,8 @@ This [Kathara](https://www.kathara.org/) lab will allow students to get handson 
   
 - [Kathara](https://www.kathara.org/) : to install it, just follow the guide on their site, or the guide on the [wiki](https://github.com/KatharaFramework/Kathara/wiki)
 
+- Some pip modules, those can be installed by using `pip install -r requirements.txt`
+
 ## Description of the lab
 
 In this lab, you will learn how congestion control works the reason why these algorithms are part of today's Internet.
