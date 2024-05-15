@@ -22,11 +22,14 @@ This lab contains nine different scenarios that will enable you to progressively
 
 ### [ACK clocking](../scenarios/no_cca_low_rate)
 
-In this first scenario, we start with a simple example: what happens when QUIC sender has no congestion control scheme, but uses a constant sending window ? With this much information, it might be difficult to know what will results from this. Let us add an hypothesis: the client sends at a rate of ~2Mbps, as it has a sending window of 10000 bytes, and a round-trip time of 40ms. Try to think about what will happen, and when you're ready, run the `scenarios/no_cca_low_rate` file, and inspect the results using 
+In this first scenario, we start with a simple example: what happens when QUIC sender has no congestion control scheme, but uses a constant sending window ? With this much information, it might be difficult to know what will results from this. Let us add an hypothesis: the client sends at a rate of ~4Mbps, as it has a sending window of 10000 bytes, and a round-trip time of 20ms. Try to think about what will happen, and when you're ready, run the `scenarios/no_cca_low_rate` file, and inspect the results using 
 ```
 python3 src/qlog_parser.py lab/shared/no_cca_low_rate/LOG_ID.qlog -d
 python3 src/plot_congestion.py lab/shared/no_cca_low_rate/ --dir -f delivery_rate
 ```
+
+> [!WARNING]  
+> Don't forget to replace LOG_ID by the id of the file in `lab/shared/no_cca_low_rate`
 
 #### Questions: What do you observe ? Was there any problem during the transmission ?
 
@@ -34,7 +37,7 @@ python3 src/plot_congestion.py lab/shared/no_cca_low_rate/ --dir -f delivery_rat
 
 ### [Is ACK clocking sufficient ?](../scenarios/no_cca_high_rate)
 
-Now that we have seen what happens with a fixed sending window transmitting at a smaller rate than the bottleneck bandwidth, let us see what happens when fixed sending window results in a  rate that is greater than the bottleneck bandwidth. To do so, we will configure QUIC to transmit at a rate of 80Mbps (sending window of 400000 bytes, and a round-trip time of 40ms), as we are quite impatient and we want the upload to be done faster (damn you human, why can't you wait a bit !). You can think about what might happen, and then run the `scenarios/no_cca_high_rate` file, and inspect the results using 
+Now that we have seen what happens with a fixed sending window transmitting at a smaller rate than the bottleneck bandwidth, let us see what happens when fixed sending window results in a  rate that is greater than the bottleneck bandwidth. To do so, we will configure QUIC to transmit at a rate of 64Mbps (sending window of 400000 bytes, and a round-trip time of 50ms at minimum), as we are quite impatient and we want the upload to be done faster (damn you human, why can't you wait a bit !). You can think about what might happen, and then run the `scenarios/no_cca_high_rate` file, and inspect the results using 
 ```
 python3 src/qlog_parser.py lab/shared/no_cca_high_rate/LOG_ID.qlog -d
 ```

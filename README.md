@@ -74,7 +74,8 @@ cd /vagrant
 cd lab && sudo kathara connect main
 ```
 
-Note that for plotting, you'll need to copy files from the VM to your local computer, and then use the plotting scripts. To do so, just use the `copy_from_vm.sh` script (if you are on Windows, simply use the `scp` command). It will probably ask you for a password, for this VM it is simply `vagrant`.
+> [!NOTE]  
+>For plotting, you'll need to copy files from the VM to your local computer, and then use the plotting scripts. To do so, just use the `copy_from_vm.sh` script (if you are on Windows, simply use the `scp` command). It will probably ask you for a password, for this VM it is simply `vagrant`.
 
 ---
 
