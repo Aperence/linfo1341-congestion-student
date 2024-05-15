@@ -5,6 +5,9 @@
 > [!IMPORTANT]  
 > First, make sure to have started the lab by following the instruction of the [root README](../README.md). After that, you can proceed to read the instructions given in this file.
 
+> [!NOTE]  
+> Whenever we ask you to inspect the results of a scenario with a plotting script, these commands **HAVE TO** be run on your local computer, not inside the main device that is created by the lab !
+
 ## Running the scenarios
 
 To run a scenario, execute the following command :

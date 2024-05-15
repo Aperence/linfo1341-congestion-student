@@ -122,7 +122,8 @@ init_main
 
 # start the lab
 cd lab && \
-    sudo kathara lstart --noterminals
+    sudo kathara lstart --noterminals &&
+    sudo chmod 777 shared   # on Mac, we have to explicitly set the permissions of the shared folder
 
 start_server server1 "10.0.1.1" > server1.logs
 start_server server2 "10.0.1.2" > server2.logs
