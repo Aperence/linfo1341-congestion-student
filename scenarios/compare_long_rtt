@@ -11,6 +11,8 @@ fi
 
 cca1=$1
 cca2=$2
+cca1=${cca1,,}
+cca2=${cca2,,}
 
 data=data/XXL_data.txt
 

@@ -11,6 +11,8 @@ if [ "$#" -lt 1 ]; then
 fi
 
 cca=$1
+cca=${cca,,}
+
 if [ "$2" == "true" ] && [ "$cca" == "cubic" ]; then
     reno_friendly_disabled=""
     logs=/shared/$name/cubic_reno_friendly_enabled

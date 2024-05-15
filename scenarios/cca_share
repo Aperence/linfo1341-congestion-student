@@ -12,6 +12,9 @@ fi
 cca1=$1
 cca2=$2
 
+cca1=${cca1,,}
+cca2=${cca2,,}
+
 data=data/huge_data.txt
 
 logs=/shared/$name/${cca1}_${cca2}

@@ -10,6 +10,7 @@ if [ "$#" -ne 1 ]; then
 fi
 
 cca=$1
+cca=${cca,,}
 
 data=data/XXL_data.txt
 
