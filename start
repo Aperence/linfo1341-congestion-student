@@ -46,7 +46,7 @@ init_device_dirs(){
     cp -r certs lab/$name/home
 
     # copy the data files
-    cp -r data/ lab/$name/home
+    cp -r data lab/$name/home
 
     # copy the init script file
     cp lab/scripts/init lab/$name/home/init
