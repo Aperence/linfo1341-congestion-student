@@ -2,7 +2,8 @@
 
 ## Prequel
 
-First, make sure to have started the lab by following the instruction of the [root README](../README.md). After that, you can proceed to read the instructions given in this file.
+> [!IMPORTANT]  
+> First, make sure to have started the lab by following the instruction of the [root README](../README.md). After that, you can proceed to read the instructions given in this file.
 
 ## Running the scenarios
 
