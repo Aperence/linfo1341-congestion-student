@@ -37,7 +37,9 @@ python3 src/plot_congestion.py lab/shared/no_cca_low_rate/ --dir -f delivery_rat
 
 #### Questions: What do you observe ? Was there any problem during the transmission ?
 
-
+> You can use this box to answer
+>
+> ...
 
 ### [Is ACK clocking sufficient ?](../scenarios/no_cca_high_rate)
 
@@ -50,7 +52,9 @@ We will also run a transmission using the CUBIC congestion control algorithm to 
 
 #### Question: How did ACK clocking perform compared to CUBIC ?
 
-
+> You can use this box to answer
+>
+> ...
 
 ### [Starting simple : a single client with one congestion control algorithm](../scenarios/cca_single)
 
@@ -72,7 +76,9 @@ python3 src/plot_congestion.py lab/shared/cca_single/cubic_reno_friendly_enabled
 #### Question: What are the main differences that you see ?
 #### Bonus questions : Can you guess why cubic use a Reno friendly region ? What could be the potential advantages ?
 
-
+> You can use this box to answer
+>
+> ...
 
 ### [Stepping up : sharing bandwidth between two clients](../scenarios/cca_share)
 
@@ -93,7 +99,9 @@ python3 src/share_bandwidth.py lab/shared/cca_share/cca1_cca2
 
 #### Questions: Is the bandwidth shared fairly ? And how does the cwnd of the 2 cca evolve ?
 
-
+> You can use this box to answer
+>
+> ...
 
 ### [Sharring bandwidth : even for TCP flows](../scenarios/compare_iperf)
 
@@ -110,7 +118,9 @@ Check also the results of iperf, which prints how much time it took to run, as w
 
 #### Questions: What do you observe ? Do TCP and QUIC share fairly the bandwidth, or does one flow take all the ressources for itself ?
 
-
+> You can use this box to answer
+>
+> ...
 
 ### [When someone use an unfair congestion control algorithm...](../scenarios/without_fair_queue)
 
@@ -125,7 +135,9 @@ python3 src/plot_congestion.py lab/shared/without_fair_queue/CCA --dir -f delive
 
 #### Questions: What do you see ? Is that a fair share of the bandwidth ?
 
-
+> You can use this box to answer
+>
+> ...
 
 ### [...but the router saves the day](../scenarios/fair_queue)
 
@@ -140,7 +152,9 @@ python3 src/plot_congestion.py lab/shared/fair_queue/CCA --dir -f delivery_rate 
 
 #### Questions: What do you see ? Is this still as unfair ?
 
-
+> You can use this box to answer
+>
+> ...
 
 ### [Effect of RTT on transmission rate](../scenarios/rtt_influence)
 
@@ -156,7 +170,9 @@ python3 src/plot_congestion.py lab/shared/rtt_influence/cubic --dir -a
 
 #### Questions: What do you see ? Does Reno with a longer RTT takes more time to send the same amount of data ? How does it (or not) affect the growth of cwnd ? Same questions for CUBIC.
 
-
+> You can use this box to answer
+>
+> ...
 
 ### [Wait, are you lagging ?](../scenarios/compare_long_rtt)
 
@@ -171,7 +187,9 @@ python3 src/plot_congestion.py lab/shared/compare_long_rtt/cubic_reno --dir -a
 
 #### Questions: Which one does perform the best under long rtt situation ? Why is this the case ?
 
-
+> You can use this box to answer
+>
+> ...
 
 ## Extra
 
