@@ -146,3 +146,4 @@ To get the answers of the lab, simply contact the teaching team of [linfo1341 co
 ## Acknowledgments
 Thanks to Olivier Bonaventure, Maxime Piraux, François Michel, Louis Navarre and Aurelien Buchet who allowed me to realize this project, and gave feedback along the development of this project, allowing me to improve it even further!
 
+Thanks also to [all the students](./student-contribs.md) who reported bugs or proposed improvements, allowing to enhance to lab even more.
