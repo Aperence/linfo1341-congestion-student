@@ -38,7 +38,7 @@ We use qlogs during this lab, as the plotter uses them to represent the variatio
 
 During this lab, you can also disable the generation of qlogs if you want to check whether they have impact on the performance. To do so, simply remove the argument `--log-dir` when running a client/server. You can also modify the scenarios if you want to.
 
-## Running the pre-made scenarios
+## Launching Kathara
 
 To run the scenarios, simply open a terminal in this folder. Type the following command:
 
@@ -77,9 +77,21 @@ cd lab && sudo kathara connect main
 > [!NOTE]  
 >For plotting, you'll need to copy files from the VM to your local computer, and then use the plotting scripts. To do so, just use the `copy_from_vm.sh` script (if you are on Windows, simply use the `scp` command). It will probably ask you for a password, for this VM it is simply `vagrant`.
 
+### Lab on Red-hat based distributions
+
+On these kind of distributions, the lab requires the firewall to be disabled (as it won't work at all otherwise). The start script will automatically ask you if you want to disable it, and will proceed with this disabling. After having done the lab, the cleaning script will ask you wether you want to enable your firewall once again. If you want to handle these tasks manually, you can use :
+```bash
+# restart the firewall
+sudo systemctl start firewalld  
+# stop the firewall
+sudo systemctl stop firewalld   
+```
 ---
+## Running the pre-made scenarios
 
 You can now follow the instructions contained in the [lab README](lab/README.md) to learn how to run the different scenarios, and observe the evolution of congestion control variables over time. You may want to use wireshark or tcpdump to analyze captured packets though during this lab. For this, simply follow the instructions in the [wireshark section](#sniffing-packets-using-wireshark) below.
+
+## Stopping the lab
 
 To shut down the lab, use the command 
 ```bash
@@ -102,16 +114,6 @@ vagrant destroy
 rm -rf lab/shared  
 ``` 
 to remove all the files created by the lab.
-
-### Lab on Red-hat based distributions
-
-On these kind of distributions, the lab requires the firewall to be disabled (as it won't work at all otherwise). The start script will automatically ask you if you want to disable it, and will proceed with this disabling. After having done the lab, the cleaning script will ask you wether you want to enable your firewall once again. If you want to handle these tasks manually, you can use :
-```bash
-# restart the firewall
-sudo systemctl start firewalld  
-# stop the firewall
-sudo systemctl stop firewalld   
-```
 
 ## Sniffing packets using wireshark
 
